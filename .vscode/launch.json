@@ -1,0 +1,75 @@
+{
+    "version": "0.2.0",
+    // ==============================================================================
+    // DEBUGGER CONFIGURATION HEADER
+    // ------------------------------------------------------------------------------
+    // Project:      PicoTemplateProject
+    // Description:  Debug configurations for Pico 2 W (RP2350).
+    //               Supports both internal OpenOCD and external server modes.
+    //
+    // Version History:
+    // v1.1.0 | 2026-02-25 | Dual-mode setup with SVD & CMSIS-DAP support
+    // ==============================================================================
+
+    "configurations": [
+        {
+            // 1. STANDARD DEBUG (INTERNAL OPENOCD)
+            // ------------------------------------------------------------------------------
+            "name": "Pico Debug (Cortex-Debug)",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "openocd",
+            "serverpath": "${userHome}/.pico-sdk/openocd/0.12.0+dev/openocd.exe",
+            "cwd": "${userHome}/.pico-sdk/openocd/0.12.0+dev/scripts",
+
+            // Executable & GDB Logic
+            "executable": "${command:raspberry-pi-pico.launchTargetPath}",
+            "gdbPath": "${command:raspberry-pi-pico.getGDBPath}",
+            "device": "${command:raspberry-pi-pico.getChipUppercase}",
+            "preLaunchTask": "CMake: build",
+
+            // Hardware Interface
+            "configFiles": [
+                "interface/cmsis-dap.cfg",
+                "target/${command:raspberry-pi-pico.getTarget}.cfg"
+            ],
+            "svdFile": "${userHome}/.pico-sdk/sdk/2.2.0/src/${command:raspberry-pi-pico.getChip}/hardware_regs/${command:raspberry-pi-pico.getChipUppercase}.svd",
+
+            // Runtime Commands
+            "runToEntryPoint": "main",
+            "overrideLaunchCommands": [
+                "monitor reset init",
+                "load \"${command:raspberry-pi-pico.launchTargetPath}\""
+            ],
+            "openOCDLaunchCommands": [
+                "adapter speed 5000"
+            ]
+        },
+        {
+            // 2. EXTERNAL DEBUG (REMOTE OPENOCD)
+            // ------------------------------------------------------------------------------
+            // Use this if OpenOCD is already running in a separate terminal
+            "name": "Pico Debug (Cortex-Debug with external OpenOCD)",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "external",
+            "gdbTarget": "localhost:3333",
+            "cwd": "${workspaceRoot}",
+
+            // Executable & GDB Logic
+            "executable": "${command:raspberry-pi-pico.launchTargetPath}",
+            "gdbPath": "${command:raspberry-pi-pico.getGDBPath}",
+            "device": "${command:raspberry-pi-pico.getChipUppercase}",
+
+            // Hardware Interface
+            "svdFile": "${userHome}/.pico-sdk/sdk/2.2.0/src/${command:raspberry-pi-pico.getChip}/hardware_regs/${command:raspberry-pi-pico.getChipUppercase}.svd",
+
+            // Runtime Commands
+            "runToEntryPoint": "main",
+            "overrideLaunchCommands": [
+                "monitor reset init",
+                "load \"${command:raspberry-pi-pico.launchTargetPath}\""
+            ]
+        }
+    ]
+}

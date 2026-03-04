@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Pico",
+        "compilers": {
+            "C": "${userHome}/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc.exe",
+            "CXX": "${userHome}/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++.exe"
+        },
+        "environmentVariables": {
+            "PATH": "${userHome}/.pico-sdk/ninja/v1.12.1;${env:PATH}"
+        },
+        "cmakeSettings": {
+            "CMAKE_MAKE_PROGRAM": "${userHome}/.pico-sdk/ninja/v1.12.1/ninja.exe",
+            "PICO_BOARD": "pico2_w"
+        }
+    }
+]

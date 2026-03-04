@@ -1,0 +1,76 @@
+{
+    // ==============================================================================
+    // WORKSPACE SETTINGS HEADER
+    // ------------------------------------------------------------------------------
+    // Project:      PicoTemplateProject
+    // Description:  Advanced IDE configuration, terminal environments and 
+    //               SDK path hardcoding for cross-platform support.
+    //               Includes strict Git-Isolation to prevent SDK scanning.
+    //
+    // Version History:
+    // v1.2.0 | 2026-02-25 | Final Golden Sample: Functional Base + Max Git Lock
+    // ==============================================================================
+
+    // 1. GIT & WORKSPACE ISOLATION (FULL RECURSION BAN)
+    // ------------------------------------------------------------------------------
+    "git.openRepositoryInParentFolders": "never",
+    "git.detectSubmodules": false,
+    "git.autoRepositoryScan": false,
+    "git.repositoryScanAutostart": false,
+    "git.repositoryScanMaxDepth": 0,
+    // Verpflichtet VS Code, NUR den aktuellen Projektordner als Git-Quelle zu sehen:
+    "git.scanRepositories": [
+        "${workspaceFolder}"
+    ],
+    "git.ignoredRepositories": [
+        "${userHome}/.pico-sdk",
+        "${env:USERPROFILE}/.pico-sdk",
+        "${env:HOME}/.pico-sdk"
+    ],
+
+    // 2. CMAKE & UI CONFIGURATION
+    // ------------------------------------------------------------------------------
+    "cmake.showSystemKits": false,
+    "cmake.configureOnEdit": true,
+    "cmake.automaticReconfigure": true,
+    "cmake.configureOnOpen": true,
+    "cmake.generator": "Ninja",
+    "cmake.cmakePath": "${userHome}/.pico-sdk/cmake/v3.31.5/bin/cmake",
+    "C_Cpp.debugShortcut": false,
+
+    // Status Bar visibility (Set to 'hidden' as per your proven configuration)
+    "cmake.options.statusBarVisibility": "hidden",
+    "cmake.options.advanced": {
+        "build": { "statusBarVisibility": "hidden" },
+        "launch": { "statusBarVisibility": "hidden" },
+        "debug": { "statusBarVisibility": "hidden" }
+    },
+
+    // 3. INTEGRATED TERMINAL ENVIRONMENT (WINDOWS)
+    // ------------------------------------------------------------------------------
+    "terminal.integrated.env.windows": {
+        "PICO_SDK_PATH": "${env:USERPROFILE}/.pico-sdk/sdk/2.2.0",
+        "PICO_TOOLCHAIN_PATH": "${env:USERPROFILE}/.pico-sdk/toolchain/14_2_Rel1",
+        "Path": "${env:USERPROFILE}/.pico-sdk/toolchain/14_2_Rel1/bin;${env:USERPROFILE}/.pico-sdk/picotool/2.2.0-a4/picotool;${env:USERPROFILE}/.pico-sdk/cmake/v3.31.5/bin;${env:USERPROFILE}/.pico-sdk/ninja/v1.12.1;${env:PATH}"
+    },
+
+    // 4. INTEGRATED TERMINAL ENVIRONMENT (OSX / LINUX)
+    // ------------------------------------------------------------------------------
+    "terminal.integrated.env.osx": {
+        "PICO_SDK_PATH": "${env:HOME}/.pico-sdk/sdk/2.2.0",
+        "PICO_TOOLCHAIN_PATH": "${env:HOME}/.pico-sdk/toolchain/14_2_Rel1",
+        "PATH": "${env:HOME}/.pico-sdk/toolchain/14_2_Rel1/bin:${env:HOME}/.pico-sdk/picotool/2.2.0-a4/picotool:${env:HOME}/.pico-sdk/cmake/v3.31.5/bin:${env:HOME}/.pico-sdk/ninja/v1.12.1:${env:PATH}"
+    },
+    "terminal.integrated.env.linux": {
+        "PICO_SDK_PATH": "${env:HOME}/.pico-sdk/sdk/2.2.0",
+        "PICO_TOOLCHAIN_PATH": "${env:HOME}/.pico-sdk/toolchain/14_2_Rel1",
+        "PATH": "${env:HOME}/.pico-sdk/toolchain/14_2_Rel1/bin:${env:HOME}/.pico-sdk/picotool/2.2.0-a4/picotool:${env:HOME}/.pico-sdk/cmake/v3.31.5/bin:${env:HOME}/.pico-sdk/ninja/v1.12.1:${env:PATH}"
+    },
+
+    // 5. RASPBERRY PI PICO EXTENSION BRIDGE
+    // ------------------------------------------------------------------------------
+    "raspberry-pi-pico.cmakeAutoConfigure": false,
+    "raspberry-pi-pico.useCmakeTools": true,
+    "raspberry-pi-pico.cmakePath": "${userHome}/.pico-sdk/cmake/v3.31.5/bin/cmake",
+    "raspberry-pi-pico.ninjaPath": "${userHome}/.pico-sdk/ninja/v1.12.1/ninja"
+}

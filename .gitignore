@@ -1,0 +1,58 @@
+# ==============================================================================
+# GIT IGNORE CONFIGURATION
+# ------------------------------------------------------------------------------
+# Project:      PicoTemplateProject
+# Description:  Excludes build artifacts and junk, but protects Pico SDK bridge.
+#
+# Version History:
+# v1.1.0 | 2026-02-26 | Fixed: Whitelisted critical pico_sdk_import.cmake
+# ==============================================================================
+
+# 1. CMAKE & BUILD SYSTEM
+# ------------------------------------------------------------------------------
+build/
+.cache/
+CMakeFiles/
+CMakeCache.txt
+# WICHTIG: Die Import-Datei darf NICHT ignoriert werden!
+# Wir haben sie unten in Sektion 5 explizit freigegeben.
+
+# 2. VS CODE & EDITOR INTERNALS
+# ------------------------------------------------------------------------------
+.vscode/*
+# Ausnahmen für .vscode: Diese Dateien WOLLEN wir im Repo haben
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/cmake-kits.json
+!.vscode/cmake-kits.json.pico.backup
+
+# Logs und Datenbanken bleiben draußen
+*.log
+.vscode/ipch/
+.vscode/browse.vc.db
+
+# 3. BINARY & OBJECT FILES (Pico Specific)
+# ------------------------------------------------------------------------------
+*.elf
+*.bin
+*.hex
+*.map
+*.uf2
+*.dis
+*.obj
+*.o
+
+# 4. WINDOWS / SYSTEM JUNK
+# ------------------------------------------------------------------------------
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 5. PICO SDK & SOURCE PROTECTION (WHITELIST)
+# ------------------------------------------------------------------------------
+# Diese Dateien werden hiermit FORCE-getrackt, egal was oben steht:
+!pico_sdk_import.cmake
+!CMakeLists.txt
+!main.c
+!*.h
