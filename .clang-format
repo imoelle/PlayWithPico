@@ -1,0 +1,21 @@
+---
+# Basiert auf dem Google/LLVM Stil, aber angepasst auf deine Wünsche
+BasedOnStyle: LLVM
+IndentWidth: 4
+ColumnLimit: 110
+
+# Dies sorgt dafür, dass kurze Einzeiler wie deine Inline-Methoden 
+# genau so kompakt bleiben, wie du sie geschrieben hast:
+AllowShortFunctionsOnASingleLine: Inline
+
+# Sorgt dafür, dass die Klammer bei Funktionen in der gleichen Zeile bleibt
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: false
+  AfterStruct: false
+  AfterClass: false
+  AfterControlStatement: Never
+
+# Verhindert, dass der Formatter deine Doxygen-Kommentare zerstört
+AlignConsecutiveAssignments: false
+---
